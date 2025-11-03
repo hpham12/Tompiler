@@ -1,4 +1,5 @@
-.build/
-./vscode/
-./experimens/
+build/
+.vscode/
+.idea/
+experiments/
 .DS_Store

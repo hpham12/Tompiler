@@ -6,5 +6,5 @@ int main(int argc, char* argv[]) {
 	for (int i = 1; i < argc; i++) {		
 		argvStr.push_back(argv[i]);
 	}
-	return runCompilerDriver(argvStr, argc);
+	return runCompilerDriver(argvStr);
 }
