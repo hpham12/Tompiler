@@ -4,6 +4,7 @@
 #include "CompilerDriver.h"
 #include <iostream>
 #include <cstdio>
+#include "../lexer/lexer.h"
 
 using namespace std;
 
@@ -56,20 +57,20 @@ int runCompilerDriver(vector<string> args) {
 		if (preprocess(sourceFile, preprocessedOutputFile) != 0) {
 			return 1;
 		}
-		remove(preprocessedOutputFile.c_str());
 		lex(preprocessedOutputFile);
+		remove(preprocessedOutputFile.c_str());
 	} else if (option == PARSER_FLAG) {
 		if (preprocess(sourceFile, preprocessedOutputFile) != 0) {
 			return 1;
 		}
-		remove(preprocessedOutputFile.c_str());
 		parse(preprocessedOutputFile);
+		remove(preprocessedOutputFile.c_str());
 	} else if (option == CODEGEN_FLAG) {
 		if (preprocess(sourceFile, preprocessedOutputFile) != 0) {
 			return 1;
 		}
-		remove(preprocessedOutputFile.c_str());
 		codeGen(preprocessedOutputFile);
+		remove(preprocessedOutputFile.c_str());
 	}
 
 	return 0;
@@ -105,6 +106,7 @@ int compile(string inputFileName, string outputFileName) {
 
 int lex(string inputFileName) {
 	cout << "Running lexer for " << inputFileName << endl;
+	lexer::lex(inputFileName);
 	return 0;
 }
 
