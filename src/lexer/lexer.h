@@ -25,6 +25,12 @@ inline map<string, TokenType> regexes = {
 	{";", SEMICOLON}
 };
 
+inline map<string, TokenType> keywordRegexes = {
+	{"int\\b", INT_KEYWORD},
+	{"void\\b", VOID_KEYWORD},
+	{"return\\b", RETURN_KEYWORD}
+};
+
 inline unordered_map<TokenType, string> values = {
 	{INT_KEYWORD, "int"},
 	{VOID_KEYWORD, "void"},

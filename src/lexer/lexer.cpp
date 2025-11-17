@@ -16,14 +16,6 @@ namespace lexer {
 		string inputString = readFileContent(inputFileName);
 		vector<Token*> tokens = tokenize(inputString);
 
-		for (Token* token : tokens) {
-			if (token->getType() == CONSTANT) {
-				cout << "constant: " <<  *(int*)token->getValue() << endl;
-			} else {
-				cout << "other token: " << *((string*)token->getValue()) << endl;
-			}
-		}
-
 		return tokens;
 	}
 
@@ -84,6 +76,11 @@ namespace lexer {
 	TokenType getTokenType(const string& input) {
 		for (auto it = regexes.begin(); it != regexes.end(); ++it) {
 			if (regex_match(input, regex(it->first))) {
+				for (auto keywordIt = keywordRegexes.begin(); keywordIt != keywordRegexes.end(); ++keywordIt) {
+					if (regex_match(input, regex(keywordIt->first))) {
+						return keywordIt->second;
+					}
+				}
 				return it->second;
 			}
 		}
@@ -94,6 +91,7 @@ namespace lexer {
 	Token* createToken(TokenType type, void *value) {
 		Token *token;
 		if (type == IDENTIFIER) {
+		
 			token = new IdentifierToken(*(string*) value);
 		} else if (type == CONSTANT) {
 			string strVal = *(string*) value;
